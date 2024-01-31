@@ -184,7 +184,8 @@
     // Carry on with the user listing
     $context = context_system::instance();
     // These columns are always shown in the users list.
-    $requiredcolumns = array('city', 'country', 'lastaccess');
+    $requiredcolumns = array('country', 'lastaccess');
+    //$requiredcolumns = array('city', 'country', 'lastaccess');
     // Extra columns containing the extra user fields, excluding the required columns (city and country, to be specific).
     $userfields = \core_user\fields::for_identity($context, true)->excluding(...$requiredcolumns);
     $extracolumns = $userfields->get_required_fields();
@@ -308,7 +309,7 @@
         foreach ($extracolumns as $field) {
             $table->head[] = ${$field};
         }
-        $table->head[] = $city;
+        //$table->head[] = $city;
         $table->head[] = $country;
         $table->head[] = $lastaccess;
         $table->head[] = get_string('edit');
@@ -407,7 +408,7 @@
             foreach ($extracolumns as $field) {
                 $row[] = s($user->{$field});
             }
-            $row[] = $user->city;
+          //  $row[] = $user->city;
             $row[] = $user->country;
             $row[] = $strlastaccess;
             if ($user->suspended) {

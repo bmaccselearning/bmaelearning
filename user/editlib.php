@@ -258,6 +258,12 @@ function useredit_shared_definition(&$mform, $editoroptions, $filemanageroptions
 
     $strrequired = get_string('required');
     $stringman = get_string_manager();
+     
+
+
+    $mform->addElement('text', 'title', 'คำนำหน้านาม', 'maxlength="20" size="25"');
+    /* $mform->setType('alternatename', core_user::get_property_type('alternatename'));
+    $mform->setForceLtr('alternatename'); */
 
     // Add the necessary names.
     foreach (useredit_get_required_name_fields() as $fullname) {
@@ -280,13 +286,41 @@ function useredit_shared_definition(&$mform, $editoroptions, $filemanageroptions
         $mform->setType($addname, PARAM_NOTAGS);
     }
 
+    $mform->addElement('text', 'idnumber', get_string('idnumber'), 'maxlength="255" size="25"');
+    $mform->setType('idnumber', core_user::get_property_type('idnumber'));
+
+    $mform->addElement('text', 'birthday', 'วันเกิด', 'maxlength="20" size="25"');
+    
+     
+    $mform->addElement('text', 'phone1', get_string('phone1'), 'maxlength="20" size="25"');
+    $mform->setType('phone1', core_user::get_property_type('phone1'));
+    $mform->setForceLtr('phone1');
+
+   /* //if (get_config('tool_moodlenet', 'enablemoodlenet')) {
+        $mform->addElement('text', 'phone1', get_string('phone1', 'user'), 'maxlength="255" size="30"');
+        $mform->setType('phone1', PARAM_RAW_TRIMMED);
+        $mform->addHelpButton('phone1', 'phone1', 'user');
+    //} 
+     $purpose = user_edit_map_field_purpose($user->id, 'phone1');
+
+    
+    
+    $purpose = user_edit_map_field_purpose($user->id, 'phone1');
+    $mform->addElement('text', 'phone1', get_string('phone1'), 'maxlength="100" size="30"' . $purpose);
+    $mform->addRule('phone1', $strrequired, 'required', null, 'client');
+    $mform->setType('phone1', PARAM_RAW_TRIMMED); */
+
     // Do not show email field if change confirmation is pending.
+
+
     if ($user->id > 0 and !empty($CFG->emailchangeconfirmation) and !empty($user->preference_newemail)) {
         $notice = get_string('emailchangepending', 'auth', $user);
         $notice .= '<br /><a href="edit.php?cancelemailchange=1&amp;id='.$user->id.'">'
                 . get_string('emailchangecancel', 'auth') . '</a>';
         $mform->addElement('static', 'emailpending', get_string('email'), $notice);
     } else {
+       
+
         $purpose = user_edit_map_field_purpose($user->id, 'email');
         $mform->addElement('text', 'email', get_string('email'), 'maxlength="100" size="30"' . $purpose);
         $mform->addRule('email', $strrequired, 'required', null, 'client');
@@ -301,11 +335,11 @@ function useredit_shared_definition(&$mform, $editoroptions, $filemanageroptions
     $mform->setDefault('maildisplay', core_user::get_property_default('maildisplay'));
     $mform->addHelpButton('maildisplay', 'emaildisplay');
 
-    if (get_config('tool_moodlenet', 'enablemoodlenet')) {
+  /*   if (get_config('tool_moodlenet', 'enablemoodlenet')) {
         $mform->addElement('text', 'moodlenetprofile', get_string('moodlenetprofile', 'user'), 'maxlength="255" size="30"');
         $mform->setType('moodlenetprofile', PARAM_NOTAGS);
         $mform->addHelpButton('moodlenetprofile', 'moodlenetprofile', 'user');
-    }
+    } */
 
     $mform->addElement('text', 'city', get_string('city'), 'maxlength="120" size="21"');
     $mform->setType('city', PARAM_TEXT);
@@ -321,7 +355,7 @@ function useredit_shared_definition(&$mform, $editoroptions, $filemanageroptions
         $mform->setDefault('country', core_user::get_property_default('country'));
     }
 
-    if (isset($CFG->forcetimezone) and $CFG->forcetimezone != 99) {
+/*      if (isset($CFG->forcetimezone) and $CFG->forcetimezone != 99) {
         $choices = core_date::get_list_of_timezones($CFG->forcetimezone);
         $mform->addElement('static', 'forcedtimezone', get_string('timezone'), $choices[$CFG->forcetimezone]);
         $mform->addElement('hidden', 'timezone');
@@ -329,7 +363,7 @@ function useredit_shared_definition(&$mform, $editoroptions, $filemanageroptions
     } else {
         $choices = core_date::get_list_of_timezones($user->timezone, true);
         $mform->addElement('select', 'timezone', get_string('timezone'), $choices);
-    }
+    }  */
 
     if ($user->id < 0) {
         $purpose = user_edit_map_field_purpose($user->id, 'lang');
@@ -375,7 +409,7 @@ function useredit_shared_definition(&$mform, $editoroptions, $filemanageroptions
         $mform->setType('imagealt', PARAM_TEXT);
 
     }
-
+  /*
     // Display user name fields that are not currenlty enabled here if there are any.
     $disabledusernamefields = useredit_get_disabled_name_fields($enabledusernamefields);
     if (count($disabledusernamefields) > 0) {
@@ -387,36 +421,103 @@ function useredit_shared_definition(&$mform, $editoroptions, $filemanageroptions
         }
     }
 
-    if (core_tag_tag::is_enabled('core', 'user') and empty($USER->newadminuser)) {
+   if (core_tag_tag::is_enabled('core', 'user') and empty($USER->newadminuser)) {
         $mform->addElement('header', 'moodle_interests', get_string('interests'));
         $mform->addElement('tags', 'interests', get_string('interestslist'),
             array('itemtype' => 'user', 'component' => 'core'));
         $mform->addHelpButton('interests', 'interestslist');
-    }
+    } */
 
     // Moodle optional fields.
     $mform->addElement('header', 'moodle_optional', get_string('optional', 'form'));
 
-    $mform->addElement('text', 'idnumber', get_string('idnumber'), 'maxlength="255" size="25"');
-    $mform->setType('idnumber', core_user::get_property_type('idnumber'));
+    
+ 
+    $mform->addElement('static', 'department', 'หน่วยงาน');
+    $mform->addElement('static', 'division_name', 'กอง/สำนักงานเขต');  
+    $mform->addElement('static', 'section_name', 'ฝ่าย/กลุ่ม'); 
+    $mform->addElement('static', 'work_line_name', 'ตำแหน่งทางสายงาน');
+    $mform->addElement('static', 'job_name', 'งาน'); 
+    $mform->addElement('static', 'mp_cee_name', 'ประเภทตำแหน่ง'); 
+    $mform->addElement('static', 'pos_num_name', 'เลขที่ตำแหน่ง'); 
+    $mform->addElement('static', 'admin_name', 'ตำแหน่งทางการบริหาร');
 
-    $mform->addElement('text', 'institution', get_string('institution'), 'maxlength="255" size="25"');
-    $mform->setType('institution', core_user::get_property_type('institution'));
+    // เพิ่ม dropdown 'departments'
 
-    $mform->addElement('text', 'department', get_string('department'), 'maxlength="255" size="25"');
-    $mform->setType('department', core_user::get_property_type('department'));
+/*     $departments=$DB->get_records_sql('SELECT * FROM `view_users_department` as departments ');
+    $departmentsArray=array();
+    foreach($departments as $row){
+        $key = $row->department_code;
+        $value = $row->department_name;
+        $departmentsArray[$key] = $value;
+    } 
+    $mform->addElement('static', 'department', 'หน่วยงาน', $departmentsArray,' id="department"');
+ 
+  // เพิ่ม dropdown 'division'
+    $divisions=$DB->get_records_sql('SELECT * FROM `view_users_division` as divisions ');
+    $divisionsArray=array();
+    foreach($divisions as $row){
+        $key = $row->division_code;
+        $value = $row->division_name;
+        $divisionsArray[$key] = $key;
+    } 
+    $mform->addElement('static', 'division_code', 'กอง/สำนักงานเขต', $divisionsArray,' id="division"');  
+    
 
-    $mform->addElement('text', 'phone1', get_string('phone1'), 'maxlength="20" size="25"');
-    $mform->setType('phone1', core_user::get_property_type('phone1'));
-    $mform->setForceLtr('phone1');
+// เพิ่ม dropdown 'sections'
+    $sections = $DB->get_records_sql('SELECT * FROM `view_users_section` as sections ');
+    $sectionsArray=array();
+    foreach($sections as $row){
+        $key = $row->section_code;
+        $value = $row->section_name;
+        $sectionsArray[$key] = $value;
+    }
+    $mform->addElement('static', 'section_code', 'ฝ่าย/กลุ่ม', $sectionsArray,' id="section"'); 
 
-    $mform->addElement('text', 'phone2', get_string('phone2'), 'maxlength="20" size="25"');
-    $mform->setType('phone2', core_user::get_property_type('phone2'));
-    $mform->setForceLtr('phone2');
+    
+// เพิ่ม dropdown 'work_line'
+    $work_line = $DB->get_records_sql('SELECT * FROM `view_users_work_line` as work_line ');
+    $work_lineArray=array();
+    foreach($work_line as $row){
+        $key = $row->work_line_code;
+        $value = $row->work_line_name;
+        $work_lineArray[$key] = $value;
+    } 
+    $mform->addElement('static', 'work_line_code', 'ตำแหน่งทางสายงาน', $work_lineArray,' id="work_line"'); 
 
-    $mform->addElement('text', 'address', get_string('address'), 'maxlength="255" size="25"');
-    $mform->setType('address', core_user::get_property_type('address'));
-}
+// เพิ่ม dropdown 'job'
+    $jobs = $DB->get_records_sql('SELECT * FROM `view_users_job` as jobs ');
+    $jobsArray=array();
+    foreach($jobs as $row){
+        $key = $row->job_code;
+        $value = $row->job_name;
+        $jobsArray[$key] = $value;
+    }
+    $mform->addElement('static', 'job_code', 'งาน', $jobsArray,' id="jobs"'); 
+
+// เพิ่ม dropdown 'me_cee'
+    $mp_cee = $DB->get_records_sql('SELECT * FROM `view_users_mp_cee` as mp_cee ');
+    $mp_ceeArray=array();
+    foreach($mp_cee as $row){
+        $key = $row->mp_cee_code;
+        $value = $row->mp_cee_name;
+        $me_ceeArray[$key] = $value;
+    }
+    $mform->addElement('static', 'mp_cee_code', 'ประเภทตำแหน่ง', $mp_ceeArray,' id="mp_cee"'); 
+
+    $mform->addElement('static', 'pos_num_name', 'เลขที่ตำแหน่ง', 'maxlength="20" size="25"'); //pos_num
+
+    // เพิ่ม dropdown 'admin'
+    $admin = $DB->get_records_sql('SELECT * FROM `view_users_admin` as admin ');
+    $adminArray=array();
+    foreach($admin as $row){
+        $key = $row->admin_code;
+        $value = $row->admin_name;
+        $adminArray[$key] = $value;
+    }
+    $mform->addElement('static', 'admin_code', 'ตำแหน่งทางการบริหาร', $adminArray,' id="admin"'); 
+     */
+ }
 
 /**
  * Return required user name fields for forms.
