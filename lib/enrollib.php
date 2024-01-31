@@ -2115,7 +2115,7 @@ abstract class enrol_plugin {
         } else {
             $ue = new stdClass();
             $ue->enrolid      = $instance->id;
-            $ue->status       = is_null($status) ? ENROL_USER_ACTIVE : $status;
+            $ue->status       = 1; //is_null($status) ? ENROL_USER_ACTIVE : $status;
             $ue->userid       = $userid;
             $ue->timestart    = $timestart;
             $ue->timeend      = $timeend;
