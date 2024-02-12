@@ -2044,7 +2044,7 @@ class core_course_renderer extends plugin_renderer_base {
         global $CFG, $SITE;
 
         $output = '';
-
+      
         if (isloggedin() and !isguestuser() and isset($CFG->frontpageloggedin)) {
             $frontpagelayout = $CFG->frontpageloggedin;
         } else {
@@ -2052,6 +2052,7 @@ class core_course_renderer extends plugin_renderer_base {
         }
 
         foreach (explode(',', $frontpagelayout) as $v) {
+          
             switch ($v) {
                 // Display the main part of the front page.
                 case FRONTPAGENEWS:
