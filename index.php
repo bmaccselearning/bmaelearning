@@ -114,6 +114,7 @@ if ($hassiteconfig) {
 }
 
 echo $OUTPUT->header();
+require_once('banner.php');
 
 $siteformatoptions = course_get_format($SITE)->get_format_options();
 $modinfo = get_fast_modinfo($SITE);
