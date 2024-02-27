@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<uninstall version="2.0" xmlns="http://www.moodle.org/xmlns/install">
+    <plugin name="tool_bangkok" version="2024021300" component="tool_bangkok">
+        <tables>
+            <table name="strategic" />
+            <table name="strategic_sub" />
+            <table name="project" />
+
+        </tables>
+    </plugin>
+</uninstall>

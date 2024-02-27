@@ -38,7 +38,7 @@
       <div class="row justify-content-center" data-aos="fade-up" data-aos-delay="150">
         <div class="col-xl-8 col-lg-8">
           <h1>E-learning<span>.</span></h1>
-          <h2>Bangkok Metroplitan Administration Online Courese</h2>
+          <h2>Bangkok Metroplitan Administration Online Course</h2>
           <br>
         </div>
       </div>
@@ -46,7 +46,7 @@
       <div class="row gy-4 mt-5 justify-content-center" data-aos="zoom-in" data-aos-delay="250">
         <div class="col-xl-3 col-md-4">
           <div class="zoom">
-            <a href="#" class="header-slide-menu-icon">
+            <a href="/course/index.php?categoryid=7" class="header-slide-menu-icon" target="_blank">
                 <img style="width: 15rem;" src="./assets/img/bmaproject.png">
             </a>
             <!-- <i class="bi bi-alarm-fill" style=" font-size: 5rem; color: rgb(255, 255, 255);"></i>
@@ -55,7 +55,7 @@
         </div>
         <div class="col-xl-3 col-md-4">
           <div class="zoom">
-          <a href="#" class="header-slide-menu-icon">
+          <a href="/course/index.php?categoryid=1" class="header-slide-menu-icon" target="_blank">
               <img style="width: 15rem;" src="./assets/img/e-leaning.png">
           </a>           
           </div>

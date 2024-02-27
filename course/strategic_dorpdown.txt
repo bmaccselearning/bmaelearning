@@ -1,0 +1,50 @@
+CREATE TABLE mdl_strategic (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(255)
+);
+
+CREATE TABLE mdl_strategic_sub (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(255),
+    StrategicID INT,
+    FOREIGN KEY (StrategicID) REFERENCES strategic(id)
+);
+
+
+
+ // ยุทธศาสตร์             
+        $strategics = $DB->get_records_menu('strategic', null, '', 'id, name');
+        $mform->addElement('select', 'strategic', 'ยุทธศาสตร์ที่', $strategics);
+
+        //$strategicsub = $DB->get_records_menu('strategic_sub', null, '', 'id, name, strategicID');
+        //$mform->addElement('select', 'strategic', 'ยุทธศาสตร์ย่อยที่', $strategicsub);
+        // เพิ่ม dropdown สำหรับ strategic
+        //   $mform->addElement('select', 'strategic', 'ยุทธศาสตร์', array());
+        //$mform->setType('strategic', PARAM_INT);
+
+        // เพิ่ม dropdown สำหรับ strategic_sub
+        $mform->addElement('select', 'strategic_sub', 'ยุทธศาสตร์ย่อยที่', array());
+        //$mform->setType('strategic_sub', PARAM_INT);
+
+        // เพิ่มสคริปต์สำหรับโหลดข้อมูล strategic_sub โดยใช้ AJAX เมื่อผู้ใช้เลือก strategic
+        $mform->addElement('static', 'strategic_sub_script', '', '<script>
+            document.getElementById(\'id_strategic\').addEventListener(\'change\', function() {
+                var strategicID = this.value;
+                var xhr = new XMLHttpRequest();
+                xhr.onreadystatechange = function() {
+                    if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
+                        var options = JSON.parse(xhr.responseText);
+                        var dropdown = document.getElementById(\'id_strategic_sub\');
+                        dropdown.innerHTML = \'\';
+                        for (var i = 0; i < options.length; i++) {
+                            var option = document.createElement(\'option\');
+                            option.value = options[i].id;
+                            option.text = options[i].name;
+                            dropdown.appendChild(option);
+                        }
+                    }
+                };
+                xhr.open(\'GET\', \'get_subplans.php?strategicID=\' + strategicID, true);
+                xhr.send();
+            });
+        </script>');

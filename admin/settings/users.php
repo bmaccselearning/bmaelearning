@@ -5,6 +5,8 @@
 $ADMIN->add('users', new admin_category('accounts', new lang_string('accounts', 'admin')));
 $ADMIN->add('users', new admin_category('roles', new lang_string('permissions', 'role')));
 $ADMIN->add('users', new admin_category('privacy', new lang_string('privacyandpolicies', 'admin')));
+$ADMIN->add('users', new admin_category('organization', new lang_string('organization', 'tool_bangkok')));
+
 
 if ($hassiteconfig
  or has_capability('moodle/user:create', $systemcontext)
@@ -338,4 +340,27 @@ if ($hassiteconfig) {
         new lang_string('sitepolicyguest_help', 'core_admin'), (isset($CFG->sitepolicy) ? $CFG->sitepolicy : ''), PARAM_RAW));
 
     $ADMIN->add('privacy', $temp);
+
 }
+
+$temp = new admin_settingpage('organization', new lang_string('organization', 'tool_bangkok'));
+
+// Define a new admin_externalpage instance for the strategic tool.
+$project_tool = new admin_externalpage(
+    'manageproject', // Unique identifier for the page.
+    new lang_string('manageproject', 'tool_bangkok'), // Language string for the link.
+    "$CFG->wwwroot/admin/tool/bangkok/manageproject.php", // URL of the strategic tool.
+    array('moodle/site:config') // Capabilities required to access the page.
+);
+$managestrategic_tool = new admin_externalpage(
+    'managestrategic', // Unique identifier for the page.
+    new lang_string('managestrategic', 'tool_bangkok'), // Language string for the link.
+    "$CFG->wwwroot/admin/tool/bangkok/managestrategicsub.php", // URL of the strategic tool.
+    array('moodle/site:config') // Capabilities required to access the page.
+);
+
+// Add the strategic tool page to the appropriate category (e.g., 'users').
+$ADMIN->add('organization', $project_tool);
+$ADMIN->add('organization', $managestrategic_tool);
+
+

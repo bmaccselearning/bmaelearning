@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<XMLDB PATH="admin/tool/bangkok/db" VERSION="20220613" COMMENT="XMLDB file for Moodle admin/tool/bangkok"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="../../../lib/xmldb/xmldb.xsd"
+>
+
+    <TABLES>
+        <TABLE NAME="strategic" COMMENT="Defines strategic">
+            <FIELDS>
+                <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true"/>
+                <FIELD NAME="name" TYPE="char" LENGTH="255" NOTNULL="true" SEQUENCE="false" />
+            </FIELDS>
+            <KEYS>
+                <KEY NAME="primary" TYPE="primary" FIELDS="id" COMMENT="Primary key" />
+            </KEYS>
+
+            </TABLE>
+
+        
+        <TABLE NAME="strategic_sub" COMMENT="Defines sub strategic">
+                <FIELDS>
+                    <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true" />
+                    <FIELD NAME="name" TYPE="char" LENGTH="255" NOTNULL="true" SEQUENCE="false"/>
+                    <FIELD NAME="strategic_id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false"/>
+                </FIELDS>
+                <KEYS>
+                    <KEY NAME="primary" TYPE="primary" FIELDS="id" COMMENT="Primary key" />
+                    <KEY NAME="strategic_id" TYPE="foreign" FIELDS="strategic_id" REFTABLE="strategic" REFFIELDS="id"   />
+                </KEYS>
+        </TABLE>
+        <TABLE NAME="project" COMMENT="Defines Project">
+            <FIELDS>
+                <FIELD NAME="id" TYPE="int" LENGTH="11" NOTNULL="true" SEQUENCE="true" COMMENT="Unique identifier"/>
+                <FIELD NAME="name" TYPE="char" LENGTH="255" NOTNULL="true" COMMENT="ชื่อโครงการ" SEQUENCE="false"/>
+                <FIELD NAME="responsible" TYPE="char" LENGTH="255" NOTNULL="true" COMMENT="หน่วยงานผู้รับผิดชอบ" SEQUENCE="false"/>
+                <FIELD NAME="fiscal_year" TYPE="char" LENGTH="4" NOTNULL="true" COMMENT="ปีงบประมาณ" SEQUENCE="false"/>
+                <FIELD NAME="principles" TYPE="text" NOTNULL="true" COMMENT="หลักการและเหตุผล" SEQUENCE="false"/>
+                <FIELD NAME="objective" TYPE="text" NOTNULL="true" COMMENT="วัตถุประสงค์" SEQUENCE="false"/>
+                <FIELD NAME="target" TYPE="text" NOTNULL="true" COMMENT="เป้าหมาย" SEQUENCE="false"/>
+                <FIELD NAME="characteristics" TYPE="text" NOTNULL="true" COMMENT="ลักษณะโครงการ" SEQUENCE="false"/>
+                <FIELD NAME="duration_location" TYPE="text" NOTNULL="true" COMMENT="ระยะเวลาและสถานที่ดำเนินการ" SEQUENCE="false"/>
+                <FIELD NAME="action_plan" TYPE="text" NOTNULL="true" COMMENT="แผนปฏิบัติการ" SEQUENCE="false"/>
+                <FIELD NAME="budget" TYPE="text" NOTNULL="true" COMMENT="งบประมาณ" SEQUENCE="false"/>
+                <FIELD NAME="risk" TYPE="text" NOTNULL="true" COMMENT="ความเสี่ยงของโครงการและแนวทางการบริหารความเสี่ยง" SEQUENCE="false"/>
+                <FIELD NAME="benefits" TYPE="text" NOTNULL="true" COMMENT="ประโยชน์ที่คาดว่าจะได้รับ" SEQUENCE="false"/>
+                <FIELD NAME="evaluation" TYPE="text" NOTNULL="true" COMMENT="การติดตามประเมินผล" SEQUENCE="false"/>
+            </FIELDS>
+            <KEYS>
+                <KEY NAME="primary" TYPE="primary" FIELDS="id" COMMENT="Primary key" />
+            </KEYS>
+        </TABLE>
+    </TABLES>
+
+</XMLDB>
+
